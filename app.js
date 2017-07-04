@@ -12,15 +12,12 @@ const crypto = require('crypto');
 var mongo = require('mongoskin');
 
 var app = express();
+var port = 9000;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-const myDBName =  'secretDB';
-app.set('dbName',myDBName);
-console.log('We are using database: '+ app.get('dbName'));
-var db = mongo.db("mongo://localhost:27017/db",{ native_parser:true});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -55,13 +52,12 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
+// const decipher = crypto.createDecipher('aes256', 'asaadsaad');
 
-const decipher = crypto.createDecipher('aes256', 'asaadsaad');
+// const encrypted =
+//     'ba12e76147f0f251b3a2975f7acaf446a86be1b4e2a67a5d51d62f7bfbed5c03';
+// let decrypted = decipher.update(encrypted, 'hex', 'utf8');
+// decrypted += decipher.final('utf8');
+// console.log(decrypted);
 
-const encrypted =
-    'ba12e76147f0f251b3a2975f7acaf446a86be1b4e2a67a5d51d62f7bfbed5c03';
-let decrypted = decipher.update(encrypted, 'hex', 'utf8');
-decrypted += decipher.final('utf8');
-console.log(decrypted);
-
-app.listen(8000);
+app.listen(port, () => console.log('Server started at port: '+port));
